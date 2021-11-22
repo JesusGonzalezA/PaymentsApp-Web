@@ -79,7 +79,7 @@ export const Navbar = () => {
                         className="nav-item nav-link btn"
                         onClick={ handleDeleteUser }
                     >
-                       <i class="fas fa-trash-alt"></i> Delete
+                       <i className="fas fa-trash-alt"></i> Delete
                     </button>
 
                     <button
