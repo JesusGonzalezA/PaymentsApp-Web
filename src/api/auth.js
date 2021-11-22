@@ -33,3 +33,20 @@ export const register = async ( username, password ) => {
     const text = await response.text()
     return { ok: false, error: text }
 }
+
+export const deleteUser = async ( username, password ) => {
+    const buffer = new Buffer.from(username + ':' + password)
+    const base64 = buffer.toString('base64')
+    const response = await fetch(`${HOST}/user`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Basic ${base64}`
+        }
+    })
+
+    if (response.status === 200)
+        return { ok: true }
+    
+    const text = await response.text()
+    return { ok: false, error: text }
+}

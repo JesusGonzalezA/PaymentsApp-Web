@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AuthContext } from '../../auth/authContext'
 import { types } from '../../types/types'
+import { customAlert } from '../../helpers/customAlert'
+import { deleteUser } from '../../api/auth'
 
 export const Navbar = () => {
 
@@ -13,6 +15,29 @@ export const Navbar = () => {
         }
 
         dispatch(action)
+    }
+
+    const handleDeleteUser = async () => {
+        const response = await deleteUser(user.name, user.password)
+
+        if ( response.ok ){
+            customAlert.fire({
+                title: 'Success',
+                icon: 'success',
+                text: `Deleted user ${user.name}`
+            })
+
+            dispatch({ 
+                type: types.logout
+            })
+        }
+        else {
+            customAlert.fire({
+                title: 'Error',
+                icon: 'error',
+                text: 'Something went wrong'
+            })
+        }
     }
 
     return (
@@ -52,7 +77,14 @@ export const Navbar = () => {
                     
                     <button
                         className="nav-item nav-link btn"
-                        onClick={  handleLogout }
+                        onClick={ handleDeleteUser }
+                    >
+                       <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+
+                    <button
+                        className="nav-item nav-link btn"
+                        onClick={ handleLogout }
                     >
                         Logout
                     </button>

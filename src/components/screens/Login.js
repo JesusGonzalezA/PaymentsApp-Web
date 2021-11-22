@@ -20,7 +20,7 @@ export const Login = () => {
         if ( response.ok ){
             dispatch({ 
                 type: types.login, 
-                payload: { name: username } 
+                payload: { name: username, password } 
             })
         }
         else {
