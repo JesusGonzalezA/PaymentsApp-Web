@@ -50,3 +50,25 @@ export const deleteUser = async ( username, password ) => {
     const text = await response.text()
     return { ok: false, error: text }
 }
+
+export const changePassword = async ( username, password, newPassword ) => {
+    const buffer = new Buffer.from(username + ':' + password)
+    const base64 = buffer.toString('base64')
+    const response = await fetch(`${HOST}/user`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Basic ${base64}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username,
+            password: newPassword
+        })
+    })
+    
+    if (response.status === 200)
+        return { ok: true }
+    
+    const text = await response.text()
+    return { ok: false, error: text }
+}

@@ -65,10 +65,17 @@ export const Navbar = () => {
                     >
                         About
                     </NavLink>
+
+                    <NavLink
+                        className={ ({isActive}) => 'nav-item nav-link ' + ( isActive ? 'active' : '' ) }
+                        to="/profile"
+                    >
+                        My profile
+                    </NavLink>
                 </div>
             </div>
 
-            <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
+            <div className="navbar-collapse collapse order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav ml-auto">
                     
                     <span className="nav-item nav-link text-info">
