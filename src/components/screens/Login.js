@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
 import { login } from '../../api/auth'
-import { AuthContext } from '../../auth/authContext'
 import { types } from '../../types/types'
 import { UserForm } from '../ui/UserForm'
 import { customAlert } from '../../helpers/customAlert'
 
 export const Login = () => {
 
+    const dispatch = useDispatch()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const { dispatch } = useContext(AuthContext)
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -22,6 +22,7 @@ export const Login = () => {
                 type: types.login, 
                 payload: { name: username, password } 
             })
+            localStorage.setItem('user', JSON.stringify({ name: username, password }))
         }
         else {
             customAlert.fire({

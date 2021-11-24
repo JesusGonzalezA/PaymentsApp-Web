@@ -1,26 +1,33 @@
-import { types } from "../types/types";
+import { types } from "../types/types"
 
-export const authReducer = ( state = {}, action ) => {
+const storageUser = JSON.parse(localStorage.getItem('user')) || null
+
+const initialState = {
+    user: storageUser,
+    logged: (storageUser!==null)
+}
+
+export const authReducer = ( state = initialState, action ) => {
 
     switch( action.type ) {
         case types.login:
             return {
                 ...state,
-                ...action.payload,
+                user: action.payload,
                 logged: true
             }
         
         case types.logout:
             return {
                 ...state,
-                ...action.payload,
+                user: null,
                 logged: false
             }
         
         case types.changePassword:
             return {
                 ...state,
-                ...action.payload
+                user: action.payload
             }
 
         default:

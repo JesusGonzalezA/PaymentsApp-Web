@@ -1,15 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from "react-redux"
 import { changePassword } from '../../api/auth'
-import { AuthContext } from '../../auth/authContext'
 import { customAlert } from '../../helpers/customAlert'
 import { types } from '../../types/types'
 
 export const Profile = () => {
 
+    const dispatch = useDispatch()
+    const { user } = useSelector( state => state.auth )
     const [ formVisibility, setFormVisibility ] = useState(false)
     const [ newPassword, setNewPassword ] = useState('')
     const [ repeatPassword, setRepeatPassword ] = useState('')
-    const { user, dispatch } = useContext(AuthContext)
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault()
